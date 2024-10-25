@@ -28,7 +28,7 @@ userRouter.post('/login',async(req,res)=>{
 
         res.cookie('accessToken', accessToken, Options);
         res.cookie('refreshToken', refreshToken, Options);
-        res.status(200).send({message:"Admin Logged In",accessToken , refreshToken});
+        res.status(200).send({message:"Admin Logged In",accessToken , refreshToken , key:"ADMIN"});
         
     }catch(err){
         return res.status(500).send(err.message);

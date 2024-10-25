@@ -71,7 +71,7 @@ userRouter.post('/login',verifyJWT, async (req, res) => {
         res.cookie("refreshToken", refreshToken, refreshTokenOptions);
         res.cookie("accessToken", accessToken, accessTokenOptions);
 
-        return res.status(200).json({ user: loggedInUser, accessToken, refreshToken, message: "User logged in successfully" });
+        return res.status(200).json({ user: loggedInUser, key : "STUDENT",accessToken, refreshToken, message: "User logged in successfully" });
 
     } catch (err) {
         console.error(err); // Log the error for debugging
