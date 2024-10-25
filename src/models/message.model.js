@@ -1,27 +1,30 @@
-import mongoose , { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const messageSchema = new Schema({
     message: {
         type: String,
-        required: true
+        required: true,
+        minlength: 1, // Optionally, set a minimum length
+        maxlength: 500 // Optionally, set a maximum length
     },
     sender: {
         type: Schema.Types.ObjectId,
-        ref:'User',
-        required:true
+        ref: 'User',
+        required: true
     },
-    outTime:{
+    outTime: {
+        type: Date, // Changed to Date for better handling
+        required: true
+    },
+    isAccepted: {
         type: String,
-        required:true
+        enum: ["rejected", "pending", "accepted"],
+        default: "pending"
     },
-    isAccepted:{
-        enum:["rejected","pending","accepted"],
-        default:false
-    },
-    Destination:{
-        type:String,
-        required:true
+    Destination: {
+        type: String,
+        required: true
     }
-}, { timestamps: true })
+}, { timestamps: true });
 
-export default mongoose.model('Message' , messageSchema)
+export const Message = mongoose.models.Message || mongoose.model('Message', messageSchema);

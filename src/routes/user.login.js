@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { User } from "../models/User.models.js";
+import { User } from "../models/user.model.js";
 import { z } from "zod";
 import jwt from 'jsonwebtoken';
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 import dotenv from 'dotenv';
 dotenv.config({
     path:'./env'

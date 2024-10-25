@@ -1,4 +1,4 @@
-import { messages } from "../models/message.model.js";  
+import { Message } from "../models/message.model.js";  
 import { z } from "zod";
 import mongoose from "mongoose";
 import { Router } from "express";

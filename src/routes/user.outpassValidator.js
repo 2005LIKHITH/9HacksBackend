@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Section from "../models/section.model.js";  // Assuming your model is in this path
+import  {Section} from "../models/section.user.js";// Assuming your model is in this path
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const outpassRoute = Router();

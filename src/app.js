@@ -35,10 +35,10 @@ import userLogout from "./routes/user.logout.js"
 app.use("/user/logout" , userLogout)
 import userMessage from "./routes/user.message.js"
 app.use("/user/message" , userMessage)
-import userOutpassValidator from "./routes/user.outpass.validator.js"
+import userOutpassValidator from "./routes/user.outpassValidator.js"
 app.use("/user/outpass" , userOutpassValidator)
-import userOutpass from "./routes/user.outpass.js"
-app.use("/user/outpass" , userOutpass)
+import userRegister from "./routes/user.register.js"
+app.use("/user/register" , userRegister)
 
 
 

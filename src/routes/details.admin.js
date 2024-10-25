@@ -3,7 +3,7 @@ import { z } from "zod";
 import { User } from "../models/user.model.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { Admin } from "../models/admin.model.js"; // Assuming Admin is used elsewhere in your code
-import Message from "../models/message.model.js"; // Import the Message model
+import {Message} from "../models/message.model.js"; // Import the Message model
 
 const userRouter = Router();
 

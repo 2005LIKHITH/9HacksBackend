@@ -1,6 +1,9 @@
 import { Router } from "express";
-import { User } from "../models/User.models.js";
+import { User } from "../models/user.model.js";
 import { z } from "zod";
+
+import { verifyJWT } from "../middlewares/auth.middleware.js";
+
 
 const userRouter = Router();
 
