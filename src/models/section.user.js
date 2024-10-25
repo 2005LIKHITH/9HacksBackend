@@ -2,10 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 // Defining the schema for a single time slot entry
 const timeSlotSchema = new Schema({
-    day: {
-        type: String,
-        required: true,  
-    },
+
     time: {
         type: String,
         required: true,  
@@ -13,11 +10,8 @@ const timeSlotSchema = new Schema({
     subject: {
         type: String,
         required: true, 
-    },
-    room: {
-        type: String, 
     }
-}, { _id: false });
+});
 
 const sectionSchema = new Schema({
     section: {

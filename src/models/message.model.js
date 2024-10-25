@@ -9,6 +9,14 @@ const messageSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref:'User',
         required:true
+    },
+    outTime:{
+        type: String,
+        required:true
+    },
+    isAccepted:{
+        type:Boolean,
+        default:false
     }
 }, { timestamps: true })
 

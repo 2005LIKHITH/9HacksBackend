@@ -7,7 +7,7 @@ const userSchema = new Schema({
     },
     Branch:{
         type:String,
-        required:true,
+        // required:true,
     },
 
     AdmissionNo:{
@@ -45,18 +45,18 @@ const userSchema = new Schema({
     },
     phoneNumber:{
         type:String,
-        require:true
+        // require:true
     },
     semester:{
         type:String,
-        require:true
+        // require:true
     },
     Batch:{
         type:Number,
-        require:true
+        // require:true
     }
 
-})
+},{timestamps:true})
 userSchema.pre('save' , async function(next) {
     if (!this.isModified("password")) return next();
     this.password = await bcrypt.hash(this.password , 10)
@@ -71,8 +71,14 @@ userSchema.methods.generateAccessToken = function(){
     return jwt.sign({
         _id : this._id,
         email : this.email,
-
-        fullName : this.fullName,
+        fullName:this.fullName,
+        section:this.section,
+        phoneNumber:this.phoneNumber,
+        AddmissionNo:this.AdmissionNo,
+        Gender:this.Gender,
+        Batch:this.Batch,
+        semester:this.semester
+        
     }, process.env.ACCESS_TOKEN_SECRET,{
         expiresIn : process.env.ACCESS_TOKEN_EXPIRY ,
     })
@@ -80,6 +86,8 @@ userSchema.methods.generateAccessToken = function(){
 userSchema.methods.generateRefreshToken = function(){
     return jwt.sign({
         _id : this._id,
+        email : this.email,
+        fullName:this.fullName,
         
     }, process.env.REFRESH_TOKEN_SECRET,{
         expiresIn : process.env.REFRESH_TOKEN_EXPIRY ,
