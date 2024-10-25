@@ -35,3 +35,5 @@ userRouter.post('/login',async(req,res)=>{
     }
 
 })
+
+export default userRouter

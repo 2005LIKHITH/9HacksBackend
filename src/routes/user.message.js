@@ -16,7 +16,8 @@ messageroute.post("/message", async (req, res) => {
         outTime: z.string().refine((val) => !isNaN(Date.parse(val)), {
             message: "Invalid outTime format",
         }),
-        isAccepted: z.boolean(),
+        isAccepted: z.enum(["rejected", "pending", "accepted"]), // Changed to z.enum
+        Destination: z.string(), // Added Destination validation
     });
 
     const details = data.safeParse(req.body);
@@ -30,14 +31,15 @@ messageroute.post("/message", async (req, res) => {
         return res.status(400).json({ errors });
     }
 
-    const { message, sender, outTime, isAccepted } = details.data;
+    const { message, sender, outTime, isAccepted, Destination } = details.data;
 
     try {
         await messages.create({
             message,
             sender: new mongoose.Types.ObjectId(sender),
             outTime,
-            isAccepted
+            isAccepted,
+            Destination // Include Destination in the message creation
         });
         res.json({ message: "Message sent!" });
     } catch (error) {
