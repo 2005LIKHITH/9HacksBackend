@@ -8,7 +8,7 @@ const userIdSchema = z.object({
     _id: z.string().min(1) // Validate that _id is a non-empty string
 });
 
-userRouter.post("/logout", async (req, res) => {
+userRouter.post("/logout",verifyJWT, async (req, res) => {
     try {
         const userValidation = userIdSchema.safeParse(req.user);
         
@@ -20,7 +20,7 @@ userRouter.post("/logout", async (req, res) => {
         
         await User.findByIdAndUpdate(id, { $unset: { refreshToken: 1 } }, { new: true });
 
-        const options = { httpOnly: true, secure: false }; // Set secure to false for prototype
+        const options = { httpOnly: true, secure: false }; 
 
         // Clear cookies
         return res.status(200)

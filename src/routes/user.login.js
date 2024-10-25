@@ -2,13 +2,16 @@ import { Router } from "express";
 import { User } from "../models/User.models.js";
 import { z } from "zod";
 import jwt from 'jsonwebtoken';
-
+import dotenv from 'dotenv';
+dotenv.config({
+    path:'./env'
+})
 const userRouter = Router();
 
-// Define the JWT secret and expiration settings
-const JWT_SECRET = process.env.JWT_SECRET; // Ensure this is set in your .env
-const JWT_EXPIRATION = '15m'; // Access token expiration time
-const REFRESH_TOKEN_EXPIRATION = '7d'; // Refresh token expiration time
+// // Define the JWT secret and expiration settings
+// const JWT_SECRET = process.env.JWT_SECRET; // Ensure this is set in your .env
+// const JWT_EXPIRATION = '15m'; // Access token expiration time
+// const REFRESH_TOKEN_EXPIRATION = '7d'; // Refresh token expiration time
 
 const loginSchema = z.object({
     email: z.string().email().optional(),
@@ -27,7 +30,7 @@ const generateAccessAndRefreshToken = async (userId) => {
     return { accessToken, refreshToken };
 };
 
-userRouter.post('/login', async (req, res) => {
+userRouter.post('/login',verifyJWT, async (req, res) => {
     try {
         const parsedData = loginSchema.safeParse(req.body);
         if (!parsedData.success) {

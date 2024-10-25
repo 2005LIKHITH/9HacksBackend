@@ -15,8 +15,12 @@ const messageSchema = new Schema({
         required:true
     },
     isAccepted:{
-        type:Boolean,
+        enum:["rejected","pending","accepted"],
         default:false
+    },
+    Destination:{
+        type:String,
+        required:true
     }
 }, { timestamps: true })
 
