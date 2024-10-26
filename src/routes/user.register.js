@@ -4,7 +4,7 @@ import { User } from "../models/user.model.js";
 
 const userRouter = Router();
 
-userRouter.post("/register", async (req, res) => {
+userRouter.post("/", async (req, res) => {
     const data = z.object({
         AdmissionNo: z.string(),
         email: z.string().email(),

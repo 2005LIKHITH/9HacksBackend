@@ -31,7 +31,7 @@ const generateAccessAndRefreshToken = async (userId) => {
     return { accessToken, refreshToken };
 };
 
-userRouter.post('/login', async (req, res) => {
+userRouter.post('/', async (req, res) => {
     try {
         const parsedData = loginSchema.safeParse(req.body);
         if (!parsedData.success) {
