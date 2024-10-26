@@ -1,26 +1,19 @@
 import { Router } from "express";
 import { User } from "../models/user.model.js";
-import { z } from "zod";
-
 import { verifyJWT } from "../middlewares/auth.middleware.js";
-
 
 const userRouter = Router();
 
-const userIdSchema = z.object({
-    _id: z.string().min(1) // Validate that _id is a non-empty string
-});
-
-userRouter.post("/logout",verifyJWT, async (req, res) => {
+userRouter.post("/", verifyJWT, async (req, res) => {
     try {
-        const userValidation = userIdSchema.safeParse(req.user);
-        
-        if (!userValidation.success) {
+        // Check if req.user exists and has an _id property
+        if (!req.user || !req.user._id) {
             return res.status(401).json({ message: "Unauthorized" });
         }
 
-        const id = userValidation.data._id; // Extract validated user ID
+        const id = req.user._id; // Extract the user ID directly
         
+        // Clear the refresh token from the user document
         await User.findByIdAndUpdate(id, { $unset: { refreshToken: 1 } }, { new: true });
 
         const options = { httpOnly: true, secure: false }; 

@@ -30,5 +30,5 @@ const sectionSchema = new Schema({
     }
 });
 
-export const Section = mongoose.model('Section', sectionSchema);
+export const Section =mongoose.models.Section || mongoose.model('Section', sectionSchema);
 

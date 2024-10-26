@@ -4,13 +4,65 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const outpassRoute = Router();
 
-outpassRoute.post("/check-outpass",verifyJWT ,async (req, res) => {
-    const { section, day, time } = req.body;
+outpassRoute.post("/",verifyJWT ,async (req, res) => {
+    const { day, time } = req.body;
+    const section = req.user?.section;
 
     try {
         // Fetch the timetable for the given section
-        const sectiontype = await Section.findOne(section);
-        const sectionData = await Section.findOne({ _id: sectiontype._id });
+        // const sectiontype = await Section.findOne(section);
+
+        const sectionData = {
+            "section": "S", 
+            "timeTables": {
+                "Monday": [
+                    { "time": "09:00 To 09:55", "subject": "CSE 203(S 712)" },
+                    { "time": "10:00 To 10:55", "subject": "CSE 203(S 712)" },
+                    { "time": "11:00 To 11:55", "subject": "AEC 108(S 712)" },
+                    { "time": "12:00 To 12:55", "subject": "AEC 108(S 712)" },
+                    { "time": "01:00 To 01:55", "subject": "CSE 203(S 712)" },
+                    { "time": "02:00 To 02:55", "subject": "CSE 202(C 411)" }
+                ],
+                "Tuesday": [
+                    { "time": "09:00 To 09:55", "subject": "CSE 202(C 411)" },
+                    { "time": "10:00 To 10:55", "subject": "CSE 207(S 712)" },
+                    { "time": "11:00 To 11:55", "subject": "CSE 207(X 204)" },
+                    { "time": "12:00 To 12:55", "subject": "CSE 207(X 204)" },
+                    { "time": "01:00 To 01:55", "subject": "CSE 201(C 202)" },
+                    { "time": "02:00 To 02:55", "subject": "CSE 204(S 712)" }
+                ],
+                "Wednesday": [
+                    { "time": "09:00 To 09:55", "subject": "CSE 207(S 712)" },
+                    { "time": "10:00 To 10:55", "subject": "CSE 207(S 712)" },
+                    { "time": "11:00 To 11:55", "subject": "CSE 202(C 411)" },
+                    { "time": "12:00 To 12:55", "subject": "CSE 207(X 204)" }
+                ],
+                "Thursday": [
+                    { "time": "09:00 To 09:55", "subject": "CSE 204(S 613)" },
+                    { "time": "10:00 To 10:55", "subject": "CSE 204(S 613)" },
+                    { "time": "11:00 To 11:55", "subject": "CSE 201(C 202)" },
+                    { "time": "12:00 To 12:55", "subject": "CSE 201(C 202)" },
+                    { "time": "01:00 To 01:55", "subject": "AEC 108(S 712)" }
+                ],
+                "Friday": [
+                    { "time": "09:00 To 09:55", "subject": "CSE 207(S 712)" },
+                    { "time": "10:00 To 10:55", "subject": "CSE 207(S 712)" },
+                    { "time": "11:00 To 11:55", "subject": "CSE 201(C 202)" },
+                    { "time": "12:00 To 12:55", "subject": "CSE 201(C 202)" },
+                    { "time": "01:00 To 01:55", "subject": "AEC 108(S 712)" },
+                    { "time": "02:00 To 02:55", "subject": "CSE 202(V 604)" }
+                ],
+                "Saturday": [
+                    { "time": "09:00 To 09:55", "subject": "CSE 204(S 712)" },
+                    { "time": "10:00 To 10:55", "subject": "CSE 204(S 712)" },
+                    { "time": "11:00 To 11:55", "subject": "CSE 202(V 604)" },
+                    { "time": "12:00 To 12:55", "subject": "CSE 202(V 604)" },
+                    { "time": "01:00 To 01:55", "subject": "MGT 262(S 503)" },
+                    { "time": "02:00 To 02:55", "subject": "MGT 262(S 503)" }
+                ]
+            }
+        }
+        // const sectionData = 
         if (!sectionData) {
             return res.status(404).json({ message: "Section not found" });
         }

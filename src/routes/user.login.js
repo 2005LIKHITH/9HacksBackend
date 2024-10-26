@@ -22,8 +22,8 @@ const loginSchema = z.object({
 
 // Function to generate access and refresh tokens
 const generateAccessAndRefreshToken = async (userId) => {
-    const accessToken = jwt.sign({ userId }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
-    const refreshToken = jwt.sign({ userId }, JWT_SECRET, { expiresIn: REFRESH_TOKEN_EXPIRATION });
+    const accessToken = jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRY  });
+    const refreshToken = jwt.sign({ userId }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: process.env.REFRESH_TOKEN_EXPIRY  });
 
     // Save the refresh token in the database for future validation
     await User.findByIdAndUpdate(userId, { refreshToken });
@@ -31,7 +31,7 @@ const generateAccessAndRefreshToken = async (userId) => {
     return { accessToken, refreshToken };
 };
 
-userRouter.post('/login',verifyJWT, async (req, res) => {
+userRouter.post('/login', async (req, res) => {
     try {
         const parsedData = loginSchema.safeParse(req.body);
         if (!parsedData.success) {

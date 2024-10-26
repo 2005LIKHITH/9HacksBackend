@@ -7,7 +7,7 @@ import { Message } from "../models/message.model.js";
 const userRouter = Router();
 
 
-userRouter.get("/prev-outpass", verifyJWT, async (req, res) => {
+userRouter.get("/", verifyJWT, async (req, res) => {
     try{
             const user  = await Message.find({sender : req.user._id});
             if(!user) return res.status(404).send("User not found");

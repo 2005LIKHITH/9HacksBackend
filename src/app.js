@@ -28,7 +28,7 @@ app.use("/admin/details" , adminDetails)
 import prevOutpass from "./routes/prevOutpass.js"
 app.use("/prev-outpass" , prevOutpass)
 import getUser from "./routes/user.getuser.js"
-app.use("/getUser" , getUser)
+app.use("/get-user" , getUser)
 import userLogin from "./routes/user.login.js"
 app.use("/user/login" , userLogin)
 import userLogout from "./routes/user.logout.js"
@@ -40,6 +40,8 @@ app.use("/user/outpass" , userOutpassValidator)
 import userRegister from "./routes/user.register.js"
 app.use("/user/register" , userRegister)
 
+import adminSignup from "./routes/admin.signup.js"
+app.use("/admin/signup" , adminSignup)
 
 
 

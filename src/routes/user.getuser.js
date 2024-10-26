@@ -1,24 +1,19 @@
 import { Router } from "express";
-import { z } from "zod";
 import { User } from "../models/user.model.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
+
 const userRouter = Router();
 
-// Zod schema to validate req.user
-const userIdSchema = z.object({
-    _id: z.string().min(1) // Ensure _id is a non-empty string
-});
-
-userRouter.get("/getUser", verifyJWT,async (req, res) => {
+userRouter.get("/get-user", verifyJWT, async (req, res) => {
     try {
-        // Validate req.user
-        const userValidation = userIdSchema.safeParse(req.user);
+        console.log("Hi");
 
-        if (!userValidation.success) {
+        // Check if req.user exists and has an _id property
+        if (!req.user || !req.user._id) {
             return res.status(401).json({ message: "Unauthorized" });
         }
 
-        const id = userValidation.data._id; // Extract the validated user ID
+        const id = req.user._id; // Extract the user ID directly
 
         // Find the user by ID
         const user = await User.findById(id); 

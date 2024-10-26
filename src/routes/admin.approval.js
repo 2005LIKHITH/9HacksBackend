@@ -6,7 +6,7 @@ import { Admin } from "../models/admin.model.js";
 const userRouter = Router();
 
 
-userRouter.get("/approval", verifyJWT, async (req, res) => {
+userRouter.get("/", verifyJWT, async (req, res) => {
         try{
             const users = await User.find({enum:"pending"});
             return res.status(200).send(users)

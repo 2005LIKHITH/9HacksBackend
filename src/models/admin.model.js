@@ -1,4 +1,6 @@
 import mongoose , {Schema} from "mongoose"
+import jwt from 'jsonwebtoken';
+
 
 const adminSchema = new Schema({
     username:{
@@ -11,7 +13,7 @@ const adminSchema = new Schema({
     },
     refreshToken:{
         type:String,
-        required:true
+        // required:true
     }
 })
 // adminSchema.methods.isPasswordCorrect = async function (password){
